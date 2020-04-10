@@ -121,15 +121,16 @@ RCT_EXPORT_METHOD(setRemoteAudioPlayback:(NSString *)participantSid enabled:(BOO
 RCT_EXPORT_METHOD(startLocalVideo:(BOOL)screenShare) {
     if (screenShare) {
         UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-        rootViewController.view = [TVICameraPreviewView alloc];
-        self.screen = rootViewController.view;
+        TVICameraPreviewView *view = [TVICameraPreviewView alloc];
+        
+        self.screen = view;
+        
         self.localVideoTrack = [TVILocalVideoTrack trackWithSource:self.camera];
         //    self.localVideoTrack = [TVILocalVideoTrack trackWithCapturer:self.screen enabled:YES constraints:[self videoConstraints] name:@"screen"];
     } else{
         self.camera = [[TVICameraSource alloc] init];
-        UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-        rootViewController.view = [TVICameraPreviewView alloc];
-        self.screen = rootViewController.view;
+        TVICameraPreviewView *view = [TVICameraPreviewView alloc]
+        self.screen = view;
         self.camera.delegate = self;
         self.localVideoTrack = [TVILocalVideoTrack trackWithSource:self.camera];
         //    self.localVideoTrack = [TVILocalVideoTrack trackWithCapturer:self.camera enabled:YES constraints:[self videoConstraints] name:@"camera"];
